@@ -1,15 +1,15 @@
 class TicTacToe:
     def __init__(self):
         self.board = {
-            1: '',
-            2: '',
-            3: '',
-            4: '',
-            5: '',
-            6: '',
-            7: '',
-            8: '',
-            9: ''
+            1: '-',
+            2: '-',
+            3: '-',
+            4: '-',
+            5: '-',
+            6: '-',
+            7: '-',
+            8: '-',
+            9: '-'
         }
 
         self.win = False
@@ -54,6 +54,15 @@ class TicTacToe:
         else:
             return False
 
+    def checkEnd(self):
+        for i in self.board:
+            if self.board[i] == '-':
+                return False
+        else:
+            self.win = True
+            print('The match has been drawn')
+            return True
+
     def play(self):
         self.getPlayerDetails()
         # print(player1,player2)
@@ -65,7 +74,7 @@ class TicTacToe:
                 print(self.player2,', This is your turn please enter')
 
             move = input()
-            while not (move.isnumeric() and 0 < int(move) < 10 and self.board[int(move)] == ''):
+            while not (move.isnumeric() and 0 < int(move) < 10 and self.board[int(move)] == '-'):
                 print('this is incorrect move please enter your move again')
                 move = input()
 
@@ -76,6 +85,8 @@ class TicTacToe:
                 self.board[move] = 'O'
             self.printBoard()
             if(self.checkWin()):
+                break
+            elif self.checkEnd():
                 break
             else:
                 self.turnFlagP1 = not self.turnFlagP1

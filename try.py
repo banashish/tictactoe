@@ -1,20 +1,15 @@
 class TicTacToe:
     def __init__(self):
-        self.board = {
-            1: '',
-            2: '',
-            3: '',
-            4: '',
-            5: '',
-            6: '',
-            7: '',
-            8: '',
-            9: ''
-        }
-
+        self.board = []
         self.win = False
-        self.turnFlagP1 = True
         self.player = {}
+
+    def initBoard(self,length):
+        for _ in range(length):
+            arr = []
+            for _ in range(length):
+                arr.append('')
+            self.board.append(arr) 
 
     def printBoard(self):
         for i in self.board:
@@ -23,19 +18,37 @@ class TicTacToe:
                 print('\n')
 
     def getPlayerDetails(self):
-        print('Enter number of players')
+        print("enter size of grid",end="\n"):
+        self.initBoard(int(input()))
+        print('Enter number of players',end="\n")
         x = int(input())
         s = 'Welcome,'
         for i in range(x):
-            print(i+1,' player name',end = '')
+            print(i+1,' player name',end = '\n')
             play = input()
-            print(i+1,' marker',end = '')
+            print(i+1,' marker',end = '\n')
             mark = input()
             self.player[play] = mark
             s = play + ', '
         print('Welcome',s,'!')
 
     def checkWin(self,pl,marker):
+
+        # check horizental
+
+        for i in range(len(self.board)):
+            counter = 0
+            for j in range(len(self.board)):
+                if self.board[i][j] == marker:
+                    counter+=1
+            if counter == len(self.board):
+                print("Hurray!! We found our winner")
+                self.win = True
+                print('our winner is ',pl)
+                return True
+
+        # check vertical
+
         if self.board[1] == marker and self.board[2] == marker and self.board[3] == marker or \
         self.board[4] == marker and self.board[5] == marker and self.board[6] == marker or \
         self.board[7] == marker and self.board[8] == marker and self.board[9] == marker or \
